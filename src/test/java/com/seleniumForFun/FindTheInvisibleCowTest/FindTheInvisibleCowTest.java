@@ -44,7 +44,7 @@ public class FindTheInvisibleCowTest extends BaseTest {
         FindTheInvisibleCow findTheCow = new FindTheInvisibleCow(driver);
         driver.get(prop.getProperty("findTheInvisibleCow"));
 
-        findTheCow.startGame().click();
+        //findTheCow.startGame().click();
         Thread.sleep(5000);
 
         int xCoordinate =0 , yCoordinate =0;
@@ -56,13 +56,22 @@ public class FindTheInvisibleCowTest extends BaseTest {
 
         Actions actions = new Actions(driver);
 
-        for( xCoordinate=1; xCoordinate <= width; xCoordinate = xCoordinate + 10) {
-            for (yCoordinate=1; yCoordinate <= 384; yCoordinate = yCoordinate + 10) {
-                System.out.println("xCoordinate : "+xCoordinate+" yCoordinate : "+yCoordinate);
+        // define the range
+        int max = 400;
+        int min = 1;
+        int range = max - min + 1;
 
-                actions.moveToElement(driver.findElement(By.tagName("body")), xCoordinate, yCoordinate);
-                actions.click().build().perform();
-            }
+
+
+
+        while (true) {
+            // generate random numbers within 1 to 10
+            int rand = (int)(Math.random() * range) + min;
+            int rand2 = (int)(Math.random() * range) + min;
+            // Output is different everytime this code is executed
+            System.out.println(rand);
+            System.out.println(rand2);
+            actions.moveToElement(driver.findElement(By.tagName("body")),-(rand),-(rand2)).click().build().perform();
         }
     }
 

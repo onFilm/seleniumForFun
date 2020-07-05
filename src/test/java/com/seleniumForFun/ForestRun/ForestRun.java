@@ -1,27 +1,24 @@
-package com.seleniumForFun.DoodleCricketTest;
+package com.seleniumForFun.ForestRun;
 
 import com.seleniumForFun.BaseTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import utilities.commonMethods;
 
 import java.util.concurrent.TimeUnit;
 
-public class DoodleCricketTest extends BaseTest {
-
-    @BeforeClass
+public class ForestRun extends BaseTest {
+    @BeforeTest
     public static void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
-    @Before
+    @BeforeClass
     public void setupTest() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--kiosk");
@@ -31,7 +28,7 @@ public class DoodleCricketTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @After
+    @AfterClass
     public void teardown() {
         if (driver != null) {
             driver.quit();
@@ -40,16 +37,19 @@ public class DoodleCricketTest extends BaseTest {
 
     @Test
     public void runner() throws Exception {
-        driver.get(prop.getProperty("doodleCricket"));
+        driver.get(prop.getProperty("forestRun"));
         Thread.sleep(10000);
         commonMethods commonMethods = new commonMethods();
         commonMethods.startRecording();
-        Actions act= new Actions(driver);
 
-        for(int i=0;i<=500;i++){
-            act.moveToElement(driver.findElement(By.tagName("body")),350,350).click().build().perform();
+        long start = System.currentTimeMillis();
+        long end = start + 180*1000; // 60 seconds * 1000 ms/sec
+        while (System.currentTimeMillis() < end)
+        {
+
         }
         commonMethods.stopRecording();
+        Thread.sleep(5000);
     }
 
 }
